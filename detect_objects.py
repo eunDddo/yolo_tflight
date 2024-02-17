@@ -17,7 +17,21 @@ except ImportError:
         tflite = tf.lite
     except ImportError:
         raise ImportError("Failed to load tensorflow")
+# Assuming 'preprocess_result' function returns image data in FLOAT32
+def preprocess_result(image):
+    # Process 'image' to match the model's input requirements
+    # This is a placeholder for your existing preprocessing steps
+    # Scale the image data to 0-255 and convert to INT8
+    scaled_image = image * 255.0
+    int8_image = scaled_image.astype(np.int8)
+    return int8_image
 
+# Assuming 'model_inference' function is where the error occurs
+def model_inference(cls, preprocess_result):
+    # Get the interpreter object and input details, not shown here
+    # Set the tensor with the correctly preprocessed INT8 image data
+    interpreter_obj.set_tensor(location, preprocess_result)
+    # Proceed with inference, code not shown here
 class EnumInputNodeShapeFormat(Enum):
     NCHW = "nchw"
     NCWH = "ncwh"
